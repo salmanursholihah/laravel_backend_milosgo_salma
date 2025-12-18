@@ -27,13 +27,29 @@ Route::get('/logout', function(){
 })->name('logout');
 
 
-//dashboard route
+// //dashboard route
+// Route::middleware(['auth'])->get('/dashboard', function () {
+//     return view('pages.dashboard');
+// })->name('dashboard');
 Route::middleware(['auth'])->get('/dashboard', function () {
-    return view('pages.dashboard');
+
+    $role = auth()->user()->role;
+
+    if ($role === 'super_admin') {
+        return view('pages.dashboard.super_admin');
+    }
+
+    if ($role === 'seller') {
+        return view('pages.dashboard.seller');
+    }
+
+    return view('pages.dashboard.user');
+
 })->name('dashboard');
 
+
 ///akses role admin
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:seller'])->group(function () {
    ////
 });
 

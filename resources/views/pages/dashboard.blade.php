@@ -132,7 +132,7 @@
         </div>
 
         {{-- ADMIN / SUPER ADMIN ONLY --}}
-        @can('admin-access')
+        @can('seller-access')
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">

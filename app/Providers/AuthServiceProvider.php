@@ -22,15 +22,15 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Gate::define('admin-access', function ($user) {
-            return in_array($user->role, ['admin', 'super_admin']);
+        Gate::define('seller-access', function ($user) {
+            return in_array($user->role, ['seller', 'super_admin']);
         });
 
         Gate::define('super-admin-access', function ($user) {
             return $user->role === 'super_admin';
         });
-        Gate::define('admin-access', function ($user) {
-            return in_array($user->role, ['admin', 'super_admin']);
+        Gate::define('seller-access', function ($user) {
+            return in_array($user->role, ['seller', 'super_admin']);
         });
 
         Gate::define('super-admin-access', function ($user) {
