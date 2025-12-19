@@ -44,8 +44,39 @@ Route::middleware(['auth'])
     ->name('dashboard');
 
 ///akses role seller
-Route::middleware(['auth', 'role:seller'])->group(function () {
-    ///
+Route::middleware(['auth', 'role:seller'])
+    ->prefix('seller')
+    ->name('seller.')
+    ->group(function () {
+        Route::get('/messager', function () {
+            return view('pages.seller.messager.index');
+        })->name('messager.index');
+
+        Route::get('/orders', function () {
+            return view('pages.seller.orders.index');
+        })->name('orders.index');
+
+        Route::get('/products', function () {
+            return view('pages.seller.products.index');
+        })->name('products.index');
+
+        Route::get('/reviews', function () {
+            return view('pages.seller.reviews.index');
+        })->name('reviews.index');
+
+        Route::get('/seller_profile', function () {
+            return view('pages.seller.seller_profile.index');
+        })->name('seller_profile.index');
+
+        Route::get('/shop_profile', function () {
+            return view('pages.seller.shop_profile.index');
+        })->name('shop_profile.index');
+
+        Route::get('/withdraw', function () {
+            return view('pages.seller.withdraw.index');
+        })->name('withdraw.index');
+
+
 });
 
 ///access role super admin
@@ -131,11 +162,11 @@ Route::middleware(['auth', 'role:super_admin'])
             return view ('pages.super_admin.cupon.index');
         })->name('cupon.index');
 
-        Route::get('shipping_rule', function (){
+        Route::get('/shipping_rule', function (){
             return view ('pages.super_admin.shipping_rule.index');
         })->name('shipping_rule.index');
 
-        Route::get('vendor_profile', function (){
+        Route::get('/vendor_profile', function (){
             return view('pages.super_admin.vendor_profile.index');
         })->name('vendor_profile.index');
 
@@ -143,52 +174,122 @@ Route::middleware(['auth', 'role:super_admin'])
             return view ('pages.super_admin.setting_payment.index');
         })->name('setting_payment.index');
 
-        Route::get('withdraw_method', function (){
+        Route::get('/withdraw_method', function (){
             return view ('pages.super_admin.withdraw_method.index ');
         })->name('withdraw_method.index');
 
-        Route::get('withdraw_list', function (){
+        Route::get('/withdraw_list', function (){
             return view ('pages.super_admin.withdraw_list.index ');
         })->name('withdraw_list.index');
 
-        Route::get('slider', function (){
+        Route::get('/slider', function (){
             return view ('pages.super_admin.slider.index ');
         })->name('slider.index');
 
-        Route::get('about_page', function (){
+        Route::get('/about_page', function (){
             return view ('pages.super_admin.about_page.index ');
         })->name('about_page.index');
 
-        Route::get('home_page', function (){
+        Route::get('/home_page', function (){
             return view ('pages.super_admin.home_page.index ');
         })->name('home_page.index');
 
-        Route::get('terms_page', function (){
+        Route::get('/terms_page', function (){
             return view ('pages.super_admin.terms_page.index ');
         })->name('terms_page.index');
 
-        Route::get('vendor_condition', function (){
+        Route::get('/vendor_condition', function (){
             return view ('pages.super_admin.vendor_condition.index ');
         })->name('vendor_condition.index');
 
-        Route::get('blog_category', function (){
+        Route::get('/blog_category', function (){
             return view ('pages.super_admin.blog_category.index ');
         })->name('blog_category.index');
 
-        Route::get('blogs', function (){
+        Route::get('/blogs', function (){
             return view ('pages.super_admin.blogs.index ');
         })->name('blogs.index');
 
-        Route::get('blog_coment', function (){
+        Route::get('/blog_coment', function (){
             return view ('pages.super_admin.blog_coment.index ');
         })->name('blog_coment.index');
+
+        Route::get('/messages', function (){
+            return view ('pages.super_admin.messages.index ');
+        })->name('messages.index');
+
+        Route::get('/footer_info', function (){
+            return view ('pages.super_admin.footer_info.index');
+        })->name('footer_info.index');
+
+        Route::get('/footer_social', function (){
+            return view ('pages.super_admin.footer_social.index');
+        })->name('footer_social.index');
+
+        Route::get('/footer_grid_two', function(){
+            return view ('pages.super_admin.footer_grid_two.index');
+        })->name('footer_grid_two.index');
+
+        Route::get('/footer_grid_three', function (){
+            return view ('pages.super_admin.footer_grid_three.index');
+        })->name('footer_grid_three.index');
+
+        Route::get('/customer_list', function (){
+            return view ('pages.super_admin.customer_list.index');
+        })->name('customer_list.index');
+
+        Route::get('/vendor_list', function (){
+            return view ('pages.super_admin.vendor_list.index');
+        })->name('vendor_list.index');
+
+        Route::get('/pending_vendor', function (){
+            return view('pages.super_admin.pending_vendor.index');
+        })->name('pending_vendor.index');
+
+        Route::get('/admin_list', function (){
+            return view('pages.super_admin.admin_list.index');
+        })->name('admin_list.index');
+
+        Route::get('/manage_user', function (){
+            return view('pages.super_admin.manage_user.index');
+        })->name('manage_user.index');
+
+        Route::get('/subscribe', function (){
+            return view('pages.super_admin.subscribe.index');
+        })->name('subscribe.index');
+
+        Route::get('/setting', function (){
+            return view('pages.super_admin.setting.index');
+        })->name('setting.index');
+
     });
 
 ///access role user
-Route::middleware(['auth', 'role:user'])->group(function () {
-    // Route::resource('messager', UserMessagerController::class);
-    // Route::resource('order', UserOrderController::class);
-    // Route::resource('review', UserReviewController::class);
-    // Route::resource('addres', UserAddressController::class);
-    // Route::resource('requestvendor', UserRequestVendorCotroller::class);
+Route::middleware(['auth', 'role:user'])
+    ->prefix('user')
+    ->name('user.')
+    ->group(function () {
+        Route::get('/messager', function () {
+            return view('pages.user.messager.index');
+        })->name('messager.index');
+
+        Route::get('/orders', function () {
+            return view('pages.user.orders.index');
+        })->name('orders.index');
+
+        Route::get('/reviews', function () {
+            return view('pages.user.reviews.index');
+        })->name('reviews.index');
+
+        Route::get('/shop_profile', function () {
+            return view('pages.user.shop_profile.index');
+        })->name('shop_profile.index');
+
+        Route::get('/withdraw', function () {
+            return view('pages.user.withdraw.index');
+        })->name('withdraw.index');
+
+
 });
+
+

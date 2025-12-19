@@ -150,7 +150,7 @@
 
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('super_admin.messages.index') }}" class="nav-link">
                         <i class="fas fa-message"></i><span>messages</span>
                     </a>
                 </li>
@@ -161,10 +161,14 @@
                         <i class="fas fa-th-large"></i><span>Footer</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="#">Footer Info</a></li>
-                        <li><a class="nav-link" href="#">Footer Socials</a></li>
-                        <li><a class="nav-link" href="#">Footer Grid Two</a></li>
-                        <li><a class="nav-link" href="#">Footer Grid Three</a></li>
+                        <li><a class="nav-link" href="{{ route('super_admin.footer_info.index') }}">Footer Info</a>
+                        </li>
+                        <li><a class="nav-link" href="{{ route('super_admin.footer_social.index') }}">Footer
+                                Socials</a></li>
+                        <li><a class="nav-link" href="{{ route('super_admin.footer_grid_two.index') }}">Footer Grid
+                                Two</a></li>
+                        <li><a class="nav-link" href="{{ route('super_admin.footer_grid_three.index') }}">Footer Grid
+                                Three</a></li>
                     </ul>
                 </li>
 
@@ -174,20 +178,25 @@
                         <i class="fas fa-user"></i><span>Users</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="#">Customer List</a></li>
-                        <li><a class="nav-link" href="#">Vendor List</a></li>
-                        <li><a class="nav-link" href="#">Pending Vendors</a></li>
-                        <li><a class="nav-link" href="#">Admin List</a></li>
-                        <li><a class="nav-link" href="#">Manage User</a></li>
+                        <li><a class="nav-link" href="{{ route('super_admin.customer_list.index') }}">Customer
+                                List</a></li>
+                        <li><a class="nav-link" href="{{ route('super_admin.vendor_list.index') }}">Vendor List</a>
+                        </li>
+                        <li><a class="nav-link" href="{{ route('super_admin.pending_vendor.index') }}">Pending
+                                Vendors</a></li>
+                        <li><a class="nav-link" href="{{ route('super_admin.admin_list.index') }}">Admin List</a>
+                        </li>
+                        <li><a class="nav-link" href="{{ route('super_admin.manage_user.index') }}">Manage User</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('super_admin.subscribe.index') }}" class="nav-link">
                         <i class="fas fa-bell"></i><span>Subscribes</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('super_admin.setting.index') }}" class="nav-link">
                         <i class="fas fa-cogs"></i><span>Settings</span>
                     </a>
                 </li>
@@ -204,43 +213,43 @@
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{route('seller.messager.index')}}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Messager</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{route('seller.orders.index')}}" class="nav-link">
                         <i class="fas fa-shopping-cart"></i><span>Orders</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{route('seller.products.index')}}" class="nav-link">
                         <i class="fas fa-box"></i><span>Products</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{route('seller.reviews.index')}}" class="nav-link">
                         <i class="fas fa-star"></i><span>Reviews</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{route('seller.withdraw.index')}}" class="nav-link">
                         <i class="fas fa-wallet"></i><span>My Withdraw</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{route('seller.shop_profile.index')}}" class="nav-link">
                         <i class="fas fa-store-alt"></i><span>Shop Profile</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{route('seller.seller_profile.index')}}" class="nav-link">
                         <i class="fas fa-user"></i><span>My Profile</span>
                     </a>
                 </li>
