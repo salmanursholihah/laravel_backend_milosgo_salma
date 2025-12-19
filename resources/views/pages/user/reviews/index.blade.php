@@ -7,7 +7,7 @@
     <div class="section-header">
         <h1> reviews</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item">seller</div>
+            <div class="breadcrumb-item">user</div>
             <div class="breadcrumb-item active">reviews</div>
         </div>
     </div>
