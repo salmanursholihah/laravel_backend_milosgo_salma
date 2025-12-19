@@ -281,13 +281,17 @@ Route::middleware(['auth', 'role:user'])
             return view('pages.user.reviews.index');
         })->name('reviews.index');
 
-        Route::get('/shop_profile', function () {
-            return view('pages.user.shop_profile.index');
-        })->name('shop_profile.index');
+        Route::get('/user_profile', function () {
+            return view('pages.user.user_profile.index');
+        })->name('user_profile.index');
 
-        Route::get('/withdraw', function () {
-            return view('pages.user.withdraw.index');
-        })->name('withdraw.index');
+        Route::get('/address', function () {
+            return view('pages.user.address.index');
+        })->name('address.index');
+
+        Route::get('/request_to_be_vendor', function () {
+            return view('pages.user.request_to_be_vendor.index');
+        })->name('request_to_be_vendor.index');
 
 
 });

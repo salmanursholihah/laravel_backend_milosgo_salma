@@ -260,7 +260,7 @@
                 <li class="menu-header">My Account</li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('user.messager.index') }}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Messager</span>
                     </a>
                 </li>
@@ -272,31 +272,31 @@
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('user.orders.index') }}" class="nav-link">
                         <i class="fas fa-shopping-bag"></i><span>Orders</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('user.reviews.index') }}" class="nav-link">
                         <i class="fas fa-star"></i><span>Reviews</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('user.user_profile.index') }}" class="nav-link">
                         <i class="fas fa-user-circle"></i><span>My Profile</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('user.address.index') }}" class="nav-link">
                         <i class="fas fa-map-marker-alt"></i><span>Address</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('user.request_to_be_vendor.index') }}" class="nav-link">
                         <i class="fas fa-store"></i><span>Request to be Vendor</span>
                     </a>
                 </li>
