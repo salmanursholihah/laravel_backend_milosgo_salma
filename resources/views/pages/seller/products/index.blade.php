@@ -1,23 +1,20 @@
 @extends('layouts.app')
-
-@section('title', ' Product')
+@section('title','Products')
 
 @section('main')
 <section class="section">
     <div class="section-header">
-        <h1> Product</h1>
-        <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item">seller</div>
-            <div class="breadcrumb-item active">Product</div>
-        </div>
+        <h1>Products</h1>
     </div>
 
     <div class="section-body">
         <div class="card">
             <div class="card-header">
-                <h4>Product</h4>
+                <h4>Product List</h4>
+                <div class="card-header-action">
+                <a href="{{ route('super_admin.product.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Product</a>
+                </div>
             </div>
-
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover mb-0">
@@ -45,7 +42,7 @@
             <td>Physical</td>
             <td><span class="badge badge-primary">Active</span></td>
             <td>
-                <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{{ route('seller.products.edit') }}" class="btn btn-sm btn-warning">Edit</a>
                 <a href="#" class="btn btn-sm btn-danger">Delete</a>
             </td>
         </tr>

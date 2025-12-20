@@ -17,9 +17,7 @@
             <div class="card-header">
                 <h4>Coupon List</h4>
                 <div class="card-header-action">
-                    <button class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add Coupon
-                    </button>
+                    <a href="{{route('super_admin.cupon.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Coupon</a>
                 </div>
             </div>
 
@@ -49,9 +47,7 @@
                                 <td>31 Jan 2025</td>
                                 <td><span class="badge badge-success">Active</span></td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                               <a href="{{route('super_admin.cupon.edit')}}" class="btn btn-warning"><i class="fas fa-edit"></i>Edit</a>
                                     <button class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -67,9 +63,7 @@
                                 <td>20 Dec 2025</td>
                                 <td><span class="badge badge-secondary">Inactive</span></td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                               <a href="{{route('super_admin.cupon.edit')}}" class="btn btn-warning"><i class="fas fa-edit"></i>Edit</a>
                                     <button class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>

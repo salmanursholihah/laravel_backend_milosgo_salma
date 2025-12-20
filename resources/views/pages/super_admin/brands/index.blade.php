@@ -12,9 +12,7 @@
             <div class="card-header">
                 <h4>Brand List</h4>
                 <div class="card-header-action">
-                    <button class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Add Brand
-                    </button>
+                   <a href="{{route('super_admin.brands.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Brand</a>
                 </div>
             </div>
 
@@ -42,9 +40,8 @@
                                 <span class="badge badge-success">Active</span>
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                            </td>
+ <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                    <a href="{{route('super_admin.brands.edit')}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i>Edit</a>                            </td>
                         </tr>
                     </tbody>
                 </table>

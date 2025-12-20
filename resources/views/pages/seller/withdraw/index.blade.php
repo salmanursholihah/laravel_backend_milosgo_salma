@@ -1,23 +1,20 @@
 @extends('layouts.app')
-
-@section('title', ' withdraw')
+@section('title','withdraw')
 
 @section('main')
 <section class="section">
     <div class="section-header">
-        <h1> withdraw</h1>
-        <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item">seller</div>
-            <div class="breadcrumb-item active">withdraw</div>
-        </div>
+        <h1>withdraw</h1>
     </div>
 
     <div class="section-body">
         <div class="card">
             <div class="card-header">
-                <h4>Withdraw</h4>
+                <h4>withdraw List</h4>
+                <div class="card-header-action">
+                <a href="{{ route('seller.withdraw.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Withdraw</a>
+                </div>
             </div>
-
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover mb-0">

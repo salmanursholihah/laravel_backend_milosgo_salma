@@ -12,10 +12,18 @@
             {{-- LEFT MENU --}}
             <div class="col-md-3">
                 <ul class="list-group">
-                    <li class="list-group-item active">General Setting</li>
-                    <li class="list-group-item">Email Configuration</li>
-                    <li class="list-group-item">Logo & Favicon</li>
-                    <li class="list-group-item">Pusher Setting</li>
+                    <li class="list-group-item active">
+                        <a href="#"></a>
+                        General Setting</li>
+                    <li class="list-group-item">
+                        <a href="#"></a>
+                        Email Configuration</li>
+                    <li class="list-group-item">
+                        <a href="#"></a>
+                        Logo & Favicon</li>
+                    <li class="list-group-item">
+                        <a href="#"></a>
+                        Pusher Setting</li>
                 </ul>
             </div>
 

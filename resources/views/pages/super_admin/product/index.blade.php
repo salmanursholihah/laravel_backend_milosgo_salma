@@ -12,9 +12,7 @@
             <div class="card-header">
                 <h4>Product List</h4>
                 <div class="card-header-action">
-                    <button class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Add Product
-                    </button>
+                <a href="{{ route('super_admin.product.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Product</a>
                 </div>
             </div>
 

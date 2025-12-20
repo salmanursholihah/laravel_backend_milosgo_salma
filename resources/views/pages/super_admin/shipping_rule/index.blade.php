@@ -17,9 +17,7 @@
             <div class="card-header">
                 <h4>Shipping Rule List</h4>
                 <div class="card-header-action">
-                    <button class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add Rule
-                    </button>
+                    <a href="{{route('super_admin.shipping_rule.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Shipping Rule</a>
                 </div>
             </div>
 
@@ -47,9 +45,7 @@
                                 <td>$10</td>
                                 <td><span class="badge badge-success">Active</span></td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                                   <a href="{{route('super_admin.shipping_rule.edit')}}" class="btn btn-warning"><i class="fas fa-edit"></i>Edit</a>
                                     <button class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -64,9 +60,7 @@
                                 <td>$0</td>
                                 <td><span class="badge badge-secondary">Inactive</span></td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                                   <a href="{{route('super_admin.shipping_rule.edit')}}" class="btn btn-warning"><i class="fas fa-edit"></i>Edit</a>
                                     <button class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
