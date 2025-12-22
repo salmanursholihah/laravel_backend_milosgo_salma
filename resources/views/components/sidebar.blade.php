@@ -30,7 +30,7 @@
                         <i class="fas fa-tags"></i><span>Categories</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('super_admin.category.index') }}">Category</a></li>
+                        <li><a class="nav-link" href="{{ route('super_admin.categories.index') }}">Category</a></li>
                         <li><a class="nav-link" href="{{ route('super_admin.sub_category.index') }}">Sub Category</a>
                         </li>
                         <li><a class="nav-link" href="{{ route('super_admin.child_category.index') }}">Child
@@ -95,7 +95,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('super_admin.sale.index') }}">Flash sale</a></li>
-                        <li><a class="nav-link" href="{{ route('super_admin.cupon.index') }}">Coupons</a></li>
+                        <li><a class="nav-link" href="{{ route('super_admin.cupons.index') }}">Coupons</a></li>
                         <li><a class="nav-link" href="{{ route('super_admin.shipping_rule.index') }}">Shipping Rule</a>
                         </li>
                         <li><a class="nav-link" href="{{ route('super_admin.vendor_profile.index') }}">Vendor

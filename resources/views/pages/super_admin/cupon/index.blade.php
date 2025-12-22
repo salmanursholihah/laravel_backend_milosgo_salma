@@ -17,7 +17,10 @@
             <div class="card-header">
                 <h4>Coupon List</h4>
                 <div class="card-header-action">
-                    <a href="{{route('super_admin.cupon.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Coupon</a>
+                    <a href="{{ route('super_admin.cupons.create') }}"
+                       class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Coupon
+                    </a>
                 </div>
             </div>
 
@@ -26,50 +29,64 @@
                     <table class="table table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>Name</th>
-                                <th>Discount Type</th>
+                                <th>Code</th>
                                 <th>Discount</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
+                                <th>Period</th>
                                 <th>Status</th>
-                                <th width="15%">Action</th>
+                                <th width="15%" class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- DUMMY DATA --}}
-                            <tr>
-                                <td>#1</td>
-                                <td>NEWYEAR25</td>
-                                <td><span class="badge badge-info">Percentage</span></td>
-                                <td>25%</td>
-                                <td>01 Jan 2025</td>
-                                <td>31 Jan 2025</td>
-                                <td><span class="badge badge-success">Active</span></td>
-                                <td>
-                               <a href="{{route('super_admin.cupon.edit')}}" class="btn btn-warning"><i class="fas fa-edit"></i>Edit</a>
-                                    <button class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>#2</td>
-                                <td>SHIPFREE</td>
-                                <td><span class="badge badge-secondary">Flat</span></td>
-                                <td>$10</td>
-                                <td>10 Dec 2025</td>
-                                <td>20 Dec 2025</td>
-                                <td><span class="badge badge-secondary">Inactive</span></td>
-                                <td>
-                               <a href="{{route('super_admin.cupon.edit')}}" class="btn btn-warning"><i class="fas fa-edit"></i>Edit</a>
-                                    <button class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
+                            @forelse ($cupons as $cupon)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $cupon->name }}</td>
+                                    <td><strong>{{ $cupon->code }}</strong></td>
+                                    <td>
+                                        @if ($cupon->discount_type === 'percentage')
+                                            <span class="badge badge-info">
+                                                {{ $cupon->discount }}%
+                                            </span>
+                                        @else
+                                            <span class="badge badge-secondary">
+                                                {{ $cupon->discount }}
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($cupon->start_date)->format('d M Y') }}
+                                        -
+                                        {{ \Carbon\Carbon::parse($cupon->end_date)->format('d M Y') }}
+                                    </td>
+                                    <td>
+                                        @if ($cupon->status)
+                                            <span class="badge badge-success">Active</span>
+                                        @else
+                                            <span class="badge badge-secondary">Inactive</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        <form action="{{ route('super_admin.cupons.destroy', $cupon->id) }}"
+                                              method="POST"
+                                              class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Delete this coupon?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">
+                                        No coupons found
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
