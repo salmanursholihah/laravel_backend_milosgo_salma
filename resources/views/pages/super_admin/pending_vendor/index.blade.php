@@ -1,40 +1,47 @@
 @extends('layouts.app')
-@section('title','Pending Vendors')
+@section('title', 'Pending Vendors')
 
 @section('main')
-<section class="section">
-    <div class="section-header">
-        <h1>Pending Vendors</h1>
-    </div>
+    <section class="section">
+        <div class="section-header">
+            <h1>Pending Vendors</h1>
+        </div>
 
-    <div class="card">
-        <div class="card-body p-0">
-            <table class="table table-hover">
-                <thead>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Shop Name</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($vendors as $item)
                     <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Shop</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th width="15%">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>7</td>
-                        <td>Salman</td>
-                        <td>Salman Store</td>
-                        <td>shop@gmail.com</td>
-                        <td><span class="badge badge-warning">Pending</span></td>
+                        <td>{{ $item->user->name }}</td>
+                        <td>{{ $item->shop_name }}</td>
+                        <td>{{ $item->phone }}</td>
+                        <td>{{ $item->address }}</td>
                         <td>
-                            <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
-                            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                            <form action="{{ route('super_admin.pending_vendor.approve', $item->id) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-success btn-sm">Approve</button>
+                            </form>
+
+                            <form action="{{ route('super_admin.pending_vendor.reject', $item->id) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger btn-sm">Reject</button>
+                            </form>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Tidak ada vendor pending</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </section>
 @endsection

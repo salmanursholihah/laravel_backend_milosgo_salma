@@ -14,7 +14,6 @@ return new class extends Migration
             $table->foreignId('blog_category_id')
                   ->constrained('blog_categories')
                   ->onDelete('cascade');
-
             $table->text('image')->nullable();
             $table->string('title');
             $table->string('slug')->unique();
