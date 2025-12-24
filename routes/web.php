@@ -10,6 +10,8 @@ use App\Http\Controllers\super_admin\BlogCategoryController;
 use App\Http\Controllers\super_admin\BlogController;
 use App\Http\Controllers\user\UserRequestToVendorController;
 use App\Http\Controllers\VendorPendingController;
+use App\Http\Controllers\seller\ProductController;
+use App\Http\Controllers\super_admin\ProductApprovalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,9 +58,7 @@ Route::middleware(['auth', 'role:seller'])
         Route::view('/orders', 'pages.seller.orders.index')->name('orders.index');
 
         // Products
-        Route::view('/products', 'pages.seller.products.index')->name('products.index');
-        Route::view('/products/create', 'pages.seller.products.create')->name('products.create');
-        Route::view('/products/edit', 'pages.seller.products.edit')->name('products.edit');
+       Route::resource('products', ProductController::class);
 
         Route::view('/reviews', 'pages.seller.reviews.index')->name('reviews.index');
 
@@ -95,12 +95,42 @@ Route::middleware(['auth', 'role:super_admin'])
         Route::view('/brands/edit', 'pages.super_admin.brands.edit')->name('brands.edit');
 
         // Products
-        Route::view('/product', 'pages.super_admin.product.index')->name('product.index');
-        Route::view('/product/create', 'pages.super_admin.product.create')->name('product.create');
-        Route::view('/product/edit', 'pages.super_admin.product.edit')->name('product.edit');
+        // Route::view('/product', 'pages.super_admin.product.index')->name('product.index');
+        // Route::view('/product/create', 'pages.super_admin.product.create')->name('product.create');
+        // Route::view('/product/edit', 'pages.super_admin.product.edit')->name('product.edit');
 
-        Route::view('/seller_product', 'pages.super_admin.seller_product.index')->name('seller_product.index');
-        Route::view('/seller_pending_product', 'pages.super_admin.seller_pending_product.index')->name('seller_pending_product.index');
+        // Route::view('/seller_product', 'pages.super_admin.seller_product.index')->name('seller_product.index');
+        // Route::view('/seller_pending_product', 'pages.super_admin.seller_pending_product.index')->name('seller_pending_product.index');
+
+        Route::get('/products', [ProductApprovalController::class, 'all'])
+        ->name('product.index');
+
+    Route::get('/seller-products', [ProductApprovalController::class, 'all'])
+        ->name('seller_product.index');
+
+    Route::get('/pending-products', [ProductApprovalController::class, 'pending'])
+        ->name('seller_pending_product.index');
+
+    Route::post('/products/{id}/approve', [ProductApprovalController::class, 'approve'])
+        ->name('product.approve');
+
+    Route::post('/products/{id}/reject', [ProductApprovalController::class, 'reject'])
+        ->name('product.reject');
+
+        Route::get('/products/filter', [ProductApprovalController::class, 'filter'])
+        ->name('product.filter');
+
+       Route::get('/products', [ProductApprovalController::class, 'index'])
+            ->name('product.index');
+
+        Route::get('/products/create', [ProductApprovalController::class, 'create'])
+            ->name('product.create');
+
+        Route::post('/products', [ProductApprovalController::class, 'store'])
+            ->name('product.store');
+
+        Route::get('/seller_products', [ProductApprovalController::class, 'sellerProducts'])
+            ->name('seller_product.index');
 
         Route::view('/product_review', 'pages.super_admin.product_review.index')->name('product_review.index');
 
@@ -161,13 +191,13 @@ Route::middleware(['auth', 'role:super_admin'])
         Route::resource('blogs', BlogController::class);
 
         // Pending Vendor (FIXED route name)
-        Route::get('/pending_vendor', [VendorPendingController::class, 'index'])
+  Route::get('/pending-vendor', [VendorPendingController::class, 'index'])
             ->name('pending_vendor.index');
 
-        Route::post('/pending_vendor/{id}/approve', [VendorPendingController::class, 'approve'])
+        Route::post('/pending-vendor/{id}/approve', [VendorPendingController::class, 'approve'])
             ->name('pending_vendor.approve');
 
-        Route::post('/pending_vendor/{id}/reject', [VendorPendingController::class, 'reject'])
+        Route::post('/pending-vendor/{id}/reject', [VendorPendingController::class, 'reject'])
             ->name('pending_vendor.reject');
     });
 

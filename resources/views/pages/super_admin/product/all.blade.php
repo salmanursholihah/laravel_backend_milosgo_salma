@@ -11,36 +11,6 @@
     <div class="card">
         <div class="card-body">
 
-            {{-- ACTION HEADER --}}
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div></div>
-                <div>
-                    <a href="{{ route('super_admin.product.create') }}"
-                       class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add Product
-                    </a>
-                </div>
-            </div>
-
-            {{-- FILTER STATUS --}}
-            <form method="GET" class="mb-3">
-                <select name="status"
-                        onchange="this.form.submit()"
-                        class="form-control w-25">
-                    <option value="">All Status</option>
-                    <option value="pending" {{ request('status')=='pending' ? 'selected' : '' }}>
-                        Pending
-                    </option>
-                    <option value="approved" {{ request('status')=='approved' ? 'selected' : '' }}>
-                        Approved
-                    </option>
-                    <option value="rejected" {{ request('status')=='rejected' ? 'selected' : '' }}>
-                        Rejected
-                    </option>
-                </select>
-            </form>
-
-            {{-- TABLE --}}
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -49,23 +19,29 @@
                         <th>Price</th>
                         <th>Status</th>
                         <th>Source</th>
-                        <th width="160">Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
 
                 @forelse($products as $product)
                     <tr>
-                        <td><strong>{{ $product->name }}</strong></td>
+                        <td>
+                            <strong>{{ $product->name }}</strong>
+                        </td>
 
-                        <td>{{ $product->vendor->name ?? 'Admin' }}</td>
+                        <td>
+                            {{ $product->vendor->name ?? 'Admin' }}
+                        </td>
 
-                        <td>Rp {{ number_format($product->price) }}</td>
+                        <td>
+                            Rp {{ number_format($product->price) }}
+                        </td>
 
                         <td>
                             <span class="badge badge-
-                                {{ $product->status === 'approved' ? 'success' :
-                                   ($product->status === 'rejected' ? 'danger' : 'warning') }}">
+                                {{ $product->status == 'approved' ? 'success' :
+                                   ($product->status == 'rejected' ? 'danger' : 'warning') }}">
                                 {{ ucfirst($product->status) }}
                             </span>
                         </td>
@@ -75,7 +51,7 @@
                         </td>
 
                         <td>
-                            @if ($product->status === 'pending')
+                            @if($product->status == 'pending')
                                 <form action="{{ route('super_admin.product.approve', $product->id) }}"
                                       method="POST" class="d-inline">
                                     @csrf
@@ -111,3 +87,5 @@
     </div>
 </section>
 @endsection
+
+

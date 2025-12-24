@@ -1,47 +1,69 @@
+{{-- resources/views/pages/super_admin/pending_vendor/index.blade.php --}}
+
 @extends('layouts.app')
 @section('title', 'Pending Vendors')
 
 @section('main')
-    <section class="section">
-        <div class="section-header">
-            <h1>Pending Vendors</h1>
+<section class="section">
+    <div class="section-header">
+        <h1>Pending Vendors</h1>
+    </div>
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+    @endif
 
-        <table class="table table-bordered">
-            <thead>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Shop Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($vendors as $item)
                 <tr>
-                    <th>User</th>
-                    <th>Shop Name</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($vendors as $item)
-                    <tr>
-                        <td>{{ $item->user->name }}</td>
-                        <td>{{ $item->shop_name }}</td>
-                        <td>{{ $item->phone }}</td>
-                        <td>{{ $item->address }}</td>
-                        <td>
-                            <form action="{{ route('super_admin.pending_vendor.approve', $item->id) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-success btn-sm">Approve</button>
-                            </form>
+                    <td>{{ $item->user->name }}</td>
+                    <td>{{ $item->shop_name }}</td>
+                    <td>{{ $item->phone }}</td>
+                    <td>{{ $item->address }}</td>
+                    <td>
+                        <form
+                            action="{{ route('super_admin.pending_vendor.approve', $item->id) }}"
+                            method="POST"
+                            class="d-inline"
+                        >
+                            @csrf
+                            <button class="btn btn-success btn-sm">
+                                Approve
+                            </button>
+                        </form>
 
-                            <form action="{{ route('super_admin.pending_vendor.reject', $item->id) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-danger btn-sm">Reject</button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="text-center">Tidak ada vendor pending</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </section>
+                        <form
+                            action="{{ route('super_admin.pending_vendor.reject', $item->id) }}"
+                            method="POST"
+                            class="d-inline"
+                        >
+                            @csrf
+                            <button class="btn btn-danger btn-sm">
+                                Reject
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">
+                        Tidak ada vendor pending
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</section>
 @endsection

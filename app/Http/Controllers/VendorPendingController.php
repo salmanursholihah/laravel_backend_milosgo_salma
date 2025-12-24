@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\RequestToVendor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -32,11 +31,13 @@ class VendorPendingController extends Controller
             return $vendor;
         });
 
-        // kirim email setelah transaction sukses
+        // Kirim email
         Mail::to($vendor->user->email)
             ->send(new VendorApprovedMail($vendor));
 
-        return back()->with('success', 'Vendor berhasil di approve');
+        return redirect()
+            ->route('super_admin.pending_vendor.index')
+            ->with('success', 'Vendor berhasil di approve');
     }
 
     public function reject($id)
@@ -45,9 +46,12 @@ class VendorPendingController extends Controller
 
         $vendor->update(['status' => 'rejected']);
 
+        // Kirim email
         Mail::to($vendor->user->email)
             ->send(new VendorRejectMail($vendor));
 
-        return back()->with('success', 'Vendor berhasil di reject');
+        return redirect()
+            ->route('super_admin.pending_vendor.index')
+            ->with('success', 'Vendor berhasil di reject');
     }
 }
