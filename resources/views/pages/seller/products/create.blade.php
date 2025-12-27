@@ -31,8 +31,8 @@
     </div>
 
     <div class="form-group">
-        <label>Image</label>
-        <input type="file" name="image" class="form-control">
+        <label>Product Images</label>
+        <input type="file" name="images[]" class="form-control" multiple>
     </div>
 
     <div class="form-group">

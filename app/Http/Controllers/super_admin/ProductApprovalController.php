@@ -10,7 +10,7 @@ class ProductApprovalController extends Controller
 {
     public function index(Request $request)
 {
-    $products = Product::with('vendor')
+    $products = Product::with('vendor','images')
         ->when($request->status, function ($q) use ($request) {
             $q->where('status', $request->status);
         })
@@ -80,8 +80,8 @@ public function store(Request $request)
 public function seller_product()
 {
     $products = Product::with('vendor')
-        ->whereNotNull('vendor_id')
-        ->where('status', 'approved')
+        ->whereNotNull('vendor_id') // 🔥 product dari seller saja
+        ->latest()
         ->get();
 
     return view('pages.super_admin.product.seller_product', compact('products'));

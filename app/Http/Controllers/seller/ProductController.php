@@ -39,7 +39,8 @@ class ProductController extends Controller
     {
         $vendor = $this->getOrCreateVendor();
 
-        $products = Product::where('vendor_id', $vendor->id)
+        $products = Product::with('images')
+            ->where('vendor_id', $vendor->id)
             ->latest()
             ->get();
 
@@ -60,6 +61,37 @@ class ProductController extends Controller
     /**
      * Simpan product → MASUK ADMIN (PENDING)
      */
+    // public function store(Request $request)
+    // {
+    //     $vendor = $this->getOrCreateVendor();
+
+    //     $request->validate([
+    //         'name'        => 'required|string|max:255',
+    //         'price'       => 'required|numeric|min:0',
+    //         'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    //         'description' => 'nullable|string',
+    //     ]);
+
+    //     $imagePath = null;
+    //     if ($request->hasFile('image')) {
+    //         $imagePath = $request->file('image')->store('products', 'public');
+    //     }
+
+    //     Product::create([
+    //         'vendor_id'   => $vendor->id,   // ✅ FIX FK
+    //         'name'        => $request->name,
+    //         'price'       => $request->price,
+    //         'description' => $request->description,
+    //         'image'       => $imagePath,
+    //         'status'      => 'pending',     // 🔥 MASUK SUPER ADMIN
+    //     ]);
+
+    //     return redirect()
+    //         ->route('seller.products.index')
+    //         ->with('success', 'Product berhasil ditambahkan & menunggu approval admin');
+    // }
+
+
     public function store(Request $request)
     {
         $vendor = $this->getOrCreateVendor();
@@ -67,28 +99,35 @@ class ProductController extends Controller
         $request->validate([
             'name'        => 'required|string|max:255',
             'price'       => 'required|numeric|min:0',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'description' => 'nullable|string',
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-        }
-
-        Product::create([
-            'vendor_id'   => $vendor->id,   // ✅ FIX FK
+        // 1️⃣ SIMPAN PRODUCT
+        $product = Product::create([
+            'vendor_id'   => $vendor->id,
             'name'        => $request->name,
             'price'       => $request->price,
             'description' => $request->description,
-            'image'       => $imagePath,
-            'status'      => 'pending',     // 🔥 MASUK SUPER ADMIN
+            'status'      => 'pending',
         ]);
+
+        // 2️⃣ SIMPAN MULTI IMAGE
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('products', 'public');
+
+                $product->images()->create([
+                    'image' => $path
+                ]);
+            }
+        }
 
         return redirect()
             ->route('seller.products.index')
             ->with('success', 'Product berhasil ditambahkan & menunggu approval admin');
     }
+
 
     /**
      * Form edit product
@@ -134,12 +173,23 @@ class ProductController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
-            $product->image = $request->file('image')->store('products', 'public');
-        }
+        // if ($request->hasFile('image')) {
+        //     if ($product->image) {
+        //         Storage::disk('public')->delete($product->image);
+        //     }
+        //     $product->image = $request->file('image')->store('products', 'public');
+        // }
+
+        if ($request->hasFile('images')) {
+    foreach ($request->file('images') as $image) {
+        $path = $image->store('products', 'public');
+
+        $product->images()->create([
+            'image' => $path
+        ]);
+    }
+}
+
 
         $product->update([
             'name'        => $request->name,
