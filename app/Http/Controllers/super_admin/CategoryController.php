@@ -40,38 +40,73 @@ class CategoryController extends Controller
         return redirect()->back()->with('success', 'Category created successfully');
     }
 
+    // public function edit(Category $category)
+    // {
+    //     return view('pages.super_admin.category.edit', compact('category'));
+    // }
+
+    // public function update(Request $request, Category $category)
+    // {
+    //     $request->validate([
+    //         'name'   => 'required|string|max:255',
+    //         'slug'   => 'required|string|max:255|unique:categories,slug,' . $category->id,
+    //         'status' => 'required|boolean',
+    //         'icon'   => 'nullable|image|mimes:png,jpg,jpeg,svg',
+    //     ]);
+
+    //     if ($request->hasFile('icon')) {
+    //         if ($category->icon && Storage::disk('public')->exists($category->icon)) {
+    //             Storage::disk('public')->delete($category->icon);
+    //         }
+
+    //         $category->icon = $request->file('icon')->store('categories', 'public');
+    //     }
+
+    //     $category->update([
+    //         'name'   => $request->name,
+    //         'slug'   => $request->slug,
+    //         'status' => $request->status,
+    //         'icon'   => $category->icon,
+    //     ]);
+
+    //     return redirect()->route('categories.index')
+    //         ->with('success', 'Category updated successfully');
+    // }
+
+
+
     public function edit(Category $category)
-    {
-        return view('pages.super_admin.category.edit', compact('category'));
-    }
+{
+    return view('pages.super_admin.category.edit', compact('category'));
+}
 
-    public function update(Request $request, Category $category)
-    {
-        $request->validate([
-            'name'   => 'required|string|max:255',
-            'slug'   => 'required|string|max:255|unique:categories,slug,' . $category->id,
-            'status' => 'required|boolean',
-            'icon'   => 'nullable|image|mimes:png,jpg,jpeg,svg',
-        ]);
+public function update(Request $request, Category $category)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'slug' => 'nullable|string',
+        'icon' => 'nullable|image',
+        'status' => 'required|boolean',
+    ]);
 
-        if ($request->hasFile('icon')) {
-            if ($category->icon && Storage::disk('public')->exists($category->icon)) {
-                Storage::disk('public')->delete($category->icon);
-            }
-
-            $category->icon = $request->file('icon')->store('categories', 'public');
+    if ($request->hasFile('icon')) {
+        if ($category->icon) {
+            Storage::disk('public')->delete($category->icon);
         }
 
-        $category->update([
-            'name'   => $request->name,
-            'slug'   => $request->slug,
-            'status' => $request->status,
-            'icon'   => $category->icon,
-        ]);
-
-        return redirect()->route('categories.index')
-            ->with('success', 'Category updated successfully');
+        $category->icon = $request->file('icon')->store('categories', 'public');
     }
+
+    $category->update([
+        'name'   => $request->name,
+        'slug'   => $request->slug,
+        'status' => $request->status,
+    ]);
+
+    return redirect()
+        ->route('super_admin.categories.index')
+        ->with('success', 'Category berhasil diperbarui');
+}
 
     public function destroy(Category $category)
     {

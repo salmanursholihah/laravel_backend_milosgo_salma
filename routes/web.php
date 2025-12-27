@@ -129,7 +129,7 @@ Route::middleware(['auth', 'role:super_admin'])
         Route::post('/products', [ProductApprovalController::class, 'store'])
             ->name('product.store');
 
-        Route::get('/seller_products', [ProductApprovalController::class, 'sellerProducts'])
+        Route::get('/seller_products', [ProductApprovalController::class, 'seller_product'])
             ->name('seller_product.index');
 
         Route::view('/product_review', 'pages.super_admin.product_review.index')->name('product_review.index');
