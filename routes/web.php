@@ -12,6 +12,7 @@ use App\Http\Controllers\user\UserRequestToVendorController;
 use App\Http\Controllers\VendorPendingController;
 use App\Http\Controllers\seller\ProductController;
 use App\Http\Controllers\super_admin\ProductApprovalController;
+use App\Http\Controllers\super_admin\WithdrawMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,9 @@ Route::middleware(['auth', 'role:super_admin'])
         Route::view('/brands/create', 'pages.super_admin.brands.create')->name('brands.create');
         Route::view('/brands/edit', 'pages.super_admin.brands.edit')->name('brands.edit');
 
+        //withdraw method
+        Route::resource('withdraw_method', WithdrawMethodController::class);
+
         // Products
         // Route::view('/product', 'pages.super_admin.product.index')->name('product.index');
         // Route::view('/product/create', 'pages.super_admin.product.create')->name('product.create');
@@ -147,7 +151,9 @@ Route::middleware(['auth', 'role:super_admin'])
 
         Route::view('/transaction', 'pages.super_admin.transaction.index')->name('transaction.index');
         Route::view('/setting_payement', 'pages.super_admin.setting_payment.index')->name('setting_payment.index');
-        Route::view('/withdraw_method', 'pages.super_admin.withdraw_method.index')->name('withdraw_method.index');
+        // Route::view('/withdraw_method', 'pages.super_admin.withdraw_method.index')->name('withdraw_method.index');
+        // Route::view('/withdraw_method/create', 'pages.super_admin.withdraw_method.create')->name('withdraw_method.create');
+        // Route::view('/withdraw_method/edit', 'pages.super_admin.withdraw_method.edit')->name('withdraw_method.edit');
         Route::view('/withdraw_list', 'pages.super_admin.withdraw_list.index')->name('withdraw_list.index');
         Route::view('/home_page', 'pages.super_admin.home_page.index')->name('home_page.index');
         Route::view('/vendor_condition', 'pages.super_admin.vendor_condition.index')->name('vendor_condition.index');

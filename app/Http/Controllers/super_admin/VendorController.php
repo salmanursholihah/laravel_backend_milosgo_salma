@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class VendorController extends Controller
 {
+
+public function index()
+{
+    $requests = RequestToVendor::with('user')
+        ->where('status', 'approved')
+        ->get();
+
+    return view('pages.super_admin.vendor_list.index', compact('requests'));
+}
+
 public function approve($id)
 {
     $request = RequestToVendor::findOrFail($id);
@@ -39,5 +49,6 @@ public function approve($id)
 
     return back()->with('success', 'Vendor berhasil di-approve');
 }
+
 
 }

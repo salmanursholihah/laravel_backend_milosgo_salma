@@ -20,16 +20,33 @@
                         <th>Status</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>5</td>
-                        <td>Admin Shop</td>
-                        <td>admin@gmail.com</td>
-                        <td>Milos Store</td>
-                        <td>Vendor</td>
-                        <td><span class="badge badge-success">Approved</span></td>
-                    </tr>
-                </tbody>
+           <tbody>
+    @forelse ($requests as $request)
+        <tr>
+            <td>{{ $request->id }}</td>
+            <td>{{ $request->user->name }}</td>
+            <td>{{ $request->user->email }}</td>
+            <td>{{ $request->shop_name }}</td>
+            <td>
+                <span class="badge badge-info">
+                    {{ ucfirst($request->user->role) }}
+                </span>
+            </td>
+            <td>
+                <span class="badge badge-success">
+                    Approved
+                </span>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="6" class="text-center">
+                Tidak ada vendor approved
+            </td>
+        </tr>
+    @endforelse
+</tbody>
+
             </table>
         </div>
     </div>
