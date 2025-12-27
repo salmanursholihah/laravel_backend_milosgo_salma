@@ -54,36 +54,40 @@ class ChildCategoryController extends Controller
         return view('pages.super_admin.child_category.create', compact('categories', 'subCategories'));
     }
 
-    public function edit(ChildCategory $childCategory)
-    {
-        $categories = Category::where('status', 1)->get();
-        $subCategories = SubCategory::where('status', 1)->get();
+public function edit(ChildCategory $childCategory)
+{
+    $categories = Category::where('status', 1)->get();
+    $subCategories = SubCategory::where('status', 1)->get();
 
-        return view('pages.super_admin.child_category.edit', compact('childCategory', 'categories', 'subCategories'));
-    }
+    return view('pages.super_admin.child_category.edit', compact(
+        'childCategory',
+        'categories',
+        'subCategories'
+    ));
+}
 
-    public function update(Request $request, ChildCategory $childCategory)
-    {
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'sub_category_id' => 'required|exists:sub_categories,id',
-            'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:child_categories,slug,' . $childCategory->id,
-            'status' => 'required|boolean',
-        ]);
+public function update(Request $request, ChildCategory $childCategory)
+{
+    $request->validate([
+        'category_id'     => 'required|exists:categories,id',
+        'sub_category_id' => 'required|exists:sub_categories,id',
+        'name'            => 'required|string|max:255',
+        'slug'            => 'required|string|unique:child_categories,slug,' . $childCategory->id,
+        'status'          => 'required|boolean',
+    ]);
 
-        $slug = $request->slug ? Str::slug($request->slug) : Str::slug($request->name);
+    $childCategory->update([
+        'category_id'     => $request->category_id,
+        'sub_category_id' => $request->sub_category_id,
+        'name'            => $request->name,
+        'slug'            => $request->slug,
+        'status'          => $request->status,
+    ]);
 
-        $childCategory->update([
-            'category_id' => $request->category_id,
-            'sub_category_id' => $request->sub_category_id,
-            'name' => $request->name,
-            'slug' => $slug,
-            'status' => $request->status,
-        ]);
-
-        return redirect()->route('child-categories.index')->with('success', 'Child Category updated successfully');
-    }
+    return redirect()
+        ->route('super_admin.child_category.index')
+        ->with('success', 'Child Category berhasil diperbarui');
+}
 
     public function destroy(ChildCategory $childCategory)
     {

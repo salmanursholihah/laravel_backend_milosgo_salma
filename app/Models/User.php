@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function requestToVendor()
+    {
+        return $this->hasMany(RequestToVendor::class);
+    }
+
+
+    public function vendor(){
+        return $this->hasOne(Vendor::class);
+    }
 }

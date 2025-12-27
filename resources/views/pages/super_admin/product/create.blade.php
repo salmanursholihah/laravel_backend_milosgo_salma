@@ -17,103 +17,22 @@
     <div class="card">
       <div class="card-body">
 
-        <div class="form-group">
-          <label>Image</label>
-          <input type="file" class="form-control">
-        </div>
+<form action="{{ route('super_admin.product.store') }}" method="POST">
+    @csrf
 
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" class="form-control">
-        </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>Category</label>
-              <select class="form-control"></select>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>Sub Category</label>
-              <select class="form-control"></select>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>Child Category</label>
-              <select class="form-control"></select>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Brand</label>
-          <select class="form-control"></select>
-        </div>
-
-        <div class="form-group">
-          <label>SKU</label>
-          <input type="text" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Price</label>
-          <input type="number" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Offer Price</label>
-          <input type="number" class="form-control">
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Offer Start Date</label>
-              <input type="date" class="form-control">
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Offer End Date</label>
-              <input type="date" class="form-control">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Stock Quantity</label>
-          <input type="number" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Video Link</label>
-          <input type="text" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Short Description</label>
-          <textarea class="form-control"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Long Description</label>
-          <textarea class="summernote"></textarea>
-        </div>
-
-      </div>
-
-      <div class="card-footer">
-        <button class="btn btn-primary">Create</button>
-      </div>
+    <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" name="name" class="form-control" required>
     </div>
-  </div>
-</section>
+
+    <div class="form-group">
+        <label>Price</label>
+        <input type="number" name="price" class="form-control" required>
+    </div>
+
+    <button class="btn btn-primary">Save</button>
+</form>
+
 
 </div>
 </div>
