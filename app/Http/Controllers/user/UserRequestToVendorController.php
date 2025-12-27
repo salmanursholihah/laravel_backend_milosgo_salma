@@ -40,6 +40,7 @@ class UserRequestToVendorController extends Controller
 
         return redirect()->back()->with('success','Request berhasil dikirim');
     }
+    
 }
 
 

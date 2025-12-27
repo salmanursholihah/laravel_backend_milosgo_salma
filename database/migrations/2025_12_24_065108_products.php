@@ -13,7 +13,7 @@ return new class extends Migration
     {
    Schema::create('products', function (Blueprint $table) {
     $table->id();
-    $table->foreignId('vendor_id')->constrained('users')->cascadeOnDelete();
+    $table->foreignId('vendor_id')->constrained('vendors')->cascadeOnDelete();
     $table->string('name');
     $table->decimal('price', 12, 2);
     $table->text('description')->nullable();
@@ -32,3 +32,6 @@ return new class extends Migration
         //
     }
 };
+
+
+

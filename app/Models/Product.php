@@ -11,6 +11,6 @@ class Product extends Model
     protected $guarded = [];
     public function vendor()
     {
-        return $this->belongsTo(User::class, 'vendor_id');
+        return $this->belongsTo(Vendor::class);
     }
 }

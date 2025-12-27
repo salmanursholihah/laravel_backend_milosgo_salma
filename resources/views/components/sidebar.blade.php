@@ -213,43 +213,43 @@
                 </li>
 
                 <li>
-                    <a href="{{route('seller.messager.index')}}" class="nav-link">
+                    <a href="{{ route('seller.messager.index') }}" class="nav-link">
                         <i class="fas fa-envelope"></i><span>Messager</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('seller.orders.index')}}" class="nav-link">
+                    <a href="{{ route('seller.orders.index') }}" class="nav-link">
                         <i class="fas fa-shopping-cart"></i><span>Orders</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('seller.products.index')}}" class="nav-link">
+                    <a href="{{ route('seller.products.index') }}" class="nav-link">
                         <i class="fas fa-box"></i><span>Products</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('seller.reviews.index')}}" class="nav-link">
+                    <a href="{{ route('seller.reviews.index') }}" class="nav-link">
                         <i class="fas fa-star"></i><span>Reviews</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('seller.withdraw.index')}}" class="nav-link">
+                    <a href="{{ route('seller.withdraw.index') }}" class="nav-link">
                         <i class="fas fa-wallet"></i><span>My Withdraw</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('seller.shop_profile.index')}}" class="nav-link">
+                    <a href="{{ route('seller.shop_profile.index') }}" class="nav-link">
                         <i class="fas fa-store-alt"></i><span>Shop Profile</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('seller.seller_profile.index')}}" class="nav-link">
+                    <a href="{{ route('seller.seller_profile.index') }}" class="nav-link">
                         <i class="fas fa-user"></i><span>My Profile</span>
                     </a>
                 </li>
