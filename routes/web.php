@@ -69,10 +69,12 @@ Route::middleware(['auth', 'role:seller'])
 
         Route::view('/shop_profile', 'pages.seller.shop_profile.index')->name('shop_profile.index');
 
-        // Withdraw
-        Route::view('/withdraw', 'pages.seller.withdraw.index')->name('withdraw.index');
-        Route::view('/withdraw/create', 'pages.seller.withdraw.create')->name('withdraw.create');
-        Route::view('/withdraw/edit', 'pages.seller.withdraw.edit')->name('withdraw.edit');
+        // // Withdraw
+        // Route::view('/withdraw', 'pages.seller.withdraw.index')->name('withdraw.index');
+        // Route::view('/withdraw/create', 'pages.seller.withdraw.create')->name('withdraw.create');
+        // Route::view('/withdraw/edit', 'pages.seller.withdraw.edit')->name('withdraw.edit');
+
+        Route::resource('withdraw', 'App\Http\Controllers\seller\WithdrawController');
     });
 
 /*

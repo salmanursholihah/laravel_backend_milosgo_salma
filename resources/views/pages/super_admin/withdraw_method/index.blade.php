@@ -29,20 +29,34 @@
                                 <th width="15%">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Bank Transfer</td>
-                                <td>Rp100.000</td>
-                                <td>Rp10.000.000</td>
-                                <td>2%</td>
-                                <td>
-                                    {{-- <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button> --}}
-                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                    <a href="{{route('super_admin.withdraw_method.edit')}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i>Edit</a>
-                                </td>
-                            </tr>
-                        </tbody>
+               <tbody>
+@foreach ($methods as $method)
+<tr>
+    <td>{{ $method->id }}</td>
+    <td>{{ $method->name }}</td>
+    <td>Rp{{ number_format($method->min_amount) }}</td>
+    <td>Rp{{ number_format($method->max_amount) }}</td>
+    <td>{{ $method->charge }}%</td>
+    <td>
+        <a href="{{ route('super_admin.withdraw_method.edit', $method->id) }}"
+           class="btn btn-sm btn-warning">
+           <i class="fas fa-edit"></i>
+        </a>
+
+        <form action="{{ route('super_admin.withdraw_method.destroy', $method->id) }}"
+              method="POST" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-sm btn-danger"
+                    onclick="return confirm('Yakin hapus?')">
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
+    </td>
+</tr>
+@endforeach
+</tbody>
+
                     </table>
                 </div>
             </div>

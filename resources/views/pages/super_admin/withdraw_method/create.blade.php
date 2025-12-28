@@ -14,41 +14,55 @@
 
     <div class="section-body">
         <div class="card">
-            <div class="card-header">
-                <h4>Withdraw Method Form</h4>
-            </div>
-
             <div class="card-body">
-                <form action="#" method="POST">
+
+                <form action="{{ route('super_admin.withdraw_method.store') }}" method="POST">
                     @csrf
 
                     <div class="form-group">
                         <label>Method Name</label>
-                        <input type="text" class="form-control" name="name"
-                               placeholder="Ex: Bank Transfer">
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               placeholder="Ex: Bank Transfer"
+                               value="{{ old('name') }}"
+                               required>
                     </div>
 
                     <div class="form-group">
                         <label>Minimum Amount</label>
-                        <input type="number" class="form-control" name="min_amount"
-                               placeholder="100000">
+                        <input type="number"
+                               name="min_amount"
+                               class="form-control"
+                               placeholder="100000"
+                               value="{{ old('min_amount') }}"
+                               required>
                     </div>
 
                     <div class="form-group">
                         <label>Maximum Amount</label>
-                        <input type="number" class="form-control" name="max_amount"
-                               placeholder="10000000">
+                        <input type="number"
+                               name="max_amount"
+                               class="form-control"
+                               placeholder="10000000"
+                               value="{{ old('max_amount') }}"
+                               required>
                     </div>
 
                     <div class="form-group">
                         <label>Withdraw Charge (%)</label>
-                        <input type="number" step="0.01" class="form-control" name="charge"
-                               placeholder="2">
+                        <input type="number"
+                               step="0.01"
+                               name="charge"
+                               class="form-control"
+                               placeholder="2"
+                               value="{{ old('charge') }}"
+                               required>
                     </div>
 
                     <div class="form-group">
                         <label>Status</label>
-                        <select class="form-control" name="status">
+                        <select name="status" class="form-control">
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
                         </select>
@@ -61,6 +75,7 @@
                     </div>
 
                 </form>
+
             </div>
         </div>
     </div>
