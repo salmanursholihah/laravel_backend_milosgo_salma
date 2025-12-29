@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('withdraw_methods', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('vendor_id')->constrained('vendors')->cascadeOnDelete();
-            $table->foreignId('withdraw_method_id')->constrained('withdraw_methods')->cascadeOnDelete();
-            $table->decimal('amount', 12, 2);
-            $table->decimal('charge', 12, 2);
-            $table->decimal('final_amount', 12, 2);
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->timestamps();
-        });
+   Schema::create('withdraw_methods', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->double('minimum_amount');
+    $table->double('maximum_amount');
+    $table->double('withdraw_charge')->default(0);
+    $table->text('description')->nullable();
+    $table->boolean('status')->default(true);
+    $table->timestamps();
+});
+
     }
 
     /**

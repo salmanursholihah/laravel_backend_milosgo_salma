@@ -6,7 +6,7 @@
     <div class="section-header">
         <h1>Edit Withdraw Method</h1>
         <div class="section-header-breadcrumb">
-            <a href="{{ route('super_admin.withdraw_method.index') }}" class="btn btn-secondary">
+            <a href="{{ route('super_admin.withdraw-list.index') }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Back
             </a>
         </div>
@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-body">
 
-                <form action="{{ route('super_admin.withdraw_method.update', $method->id) }}"
+                <form action="{{ route('super_admin.withdraw-methods.update', $method->id) }}"
                       method="POST">
                     @csrf
                     @method('PUT')
@@ -35,7 +35,7 @@
                         <input type="number"
                                name="min_amount"
                                class="form-control"
-                               value="{{ old('min_amount', $method->min_amount) }}"
+                               value="{{ old('min_amount', $method->minimum_amount) }}"
                                required>
                     </div>
 
@@ -44,7 +44,7 @@
                         <input type="number"
                                name="max_amount"
                                class="form-control"
-                               value="{{ old('max_amount', $method->max_amount) }}"
+                               value="{{ old('max_amount', $method->maximum_amount) }}"
                                required>
                     </div>
 

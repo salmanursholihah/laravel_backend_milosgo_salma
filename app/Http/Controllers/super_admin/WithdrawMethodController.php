@@ -10,78 +10,86 @@ class WithdrawMethodController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $methods = WithdrawMethod::latest()->get();
         return view('pages.super_admin.withdraw_method.index', compact('methods'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.super_admin.withdraw_method.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name'       => 'required|string|max:255',
-            'min_amount' => 'required|numeric|min:0',
-            'max_amount' => 'required|numeric|gte:min_amount',
-            'charge'     => 'required|numeric|min:0',
-            'status'     => 'required|boolean',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name'=>'required',
+    //         'minimum_amount'=>'required|numeric',
+    //         'maximum_amount'=>'required|numeric',
+    //         'withdraw_charge'=>'required|numeric',
+    //     ]);
 
-        WithdrawMethod::create($request->all());
+    //     WithdrawMethod::create($request->all());
+    //     return redirect()->route('super_admin.withdraw-methods.index');
+    // }
 
-        return redirect()
-            ->route('super_admin.withdraw_method.index')
-            ->with('success', 'Withdraw method berhasil ditambahkan');
-    }
+    // public function edit($id)
+    // {
+    //     $method = WithdrawMethod::findOrFail($id);
+    //     return view('pages.super_admin.withdraw_method.edit', compact('method'));
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $method = WithdrawMethod::findOrFail($id);
-        return view('pages.super_admin.withdraw_method.edit', compact('method'));
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     $method = WithdrawMethod::findOrFail($id);
+    //     $method->update($request->all());
+    //     return redirect()->route('super_admin.withdraw-methods.index');
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name'       => 'required|string|max:255',
-            'min_amount' => 'required|numeric|min:0',
-            'max_amount' => 'required|numeric|gte:min_amount',
-            'charge'     => 'required|numeric|min:0',
-            'status'     => 'required|boolean',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required',
+        'minimum_amount' => 'required|numeric',
+        'maximum_amount' => 'required|numeric',
+        'charge' => 'required|numeric',
+    ]);
 
-        $method = WithdrawMethod::findOrFail($id);
-        $method->update($request->all());
+    WithdrawMethod::create([
+        'name' => $request->name,
+        'minimum_amount' => $request->minimum_amount,
+        'maximum_amount' => $request->maximum_amount,
+        'charge' => $request->charge,
+    ]);
 
-        return redirect()
-            ->route('super_admin.withdraw_method.index')
-            ->with('success', 'Withdraw method berhasil diupdate');
-    }
+    return redirect()->route('super_admin.withdraw-methods.index');
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        WithdrawMethod::findOrFail($id)->delete();
+public function edit($id)
+{
+    $method = WithdrawMethod::findOrFail($id);
+    return view('pages.super_admin.withdraw_method.edit', compact('method'));
+}
+public function update(Request $request, $id)
+{
+    $method = WithdrawMethod::findOrFail($id);
 
-        return back()->with('success', 'Withdraw method berhasil dihapus');
-    }
+    $request->validate([
+        'name' => 'required',
+        'minimum_amount' => 'required|numeric',
+        'maximum_amount' => 'required|numeric',
+        'charge' => 'required|numeric',
+    ]);
 
+    $method->update([
+        'name' => $request->name,
+        'minimum_amount' => $request->minimum_amount,
+        'maximum_amount' => $request->maximum_amount,
+        'charge' => $request->charge,
+    ]);
+
+    return redirect()->route('super_admin.withdraw-methods.index');
+}
 }

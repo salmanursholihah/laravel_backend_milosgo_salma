@@ -10,4 +10,8 @@ class WithdrawMethod extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function withdrawRequests(){
+        return $this->hasMany(WithdrawRequest::class);
+    }
 }
