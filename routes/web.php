@@ -13,6 +13,11 @@ use App\Http\Controllers\VendorPendingController;
 use App\Http\Controllers\seller\ProductController;
 use App\Http\Controllers\super_admin\ProductApprovalController;
 use App\Http\Controllers\super_admin\WithdrawMethodController;
+use App\Http\Controllers\super_admin\WithdrawRequestController;
+use App\Http\Controllers\seller\WithdrawController;
+use App\Http\Controllers\super_admin\WithdrawListController;
+use App\Http\Controllers\super_admin\BlogCommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +25,7 @@ use App\Http\Controllers\super_admin\WithdrawMethodController;
 |--------------------------------------------------------------------------
 */
 
- /*
+/*
  |--------------------------------------------------------------------------
  | Authentication (Handled by Fortify)
  |--------------------------------------------------------------------------
@@ -29,21 +34,23 @@ use App\Http\Controllers\super_admin\WithdrawMethodController;
  | - Saya biarkan dulu karena kamu minta hanya dirapikan
  |
  */
-Route::get('/login', fn () => view('auth.login'))->name('login');
-Route::get('/register', fn () => view('auth.register'))->name('register');
+Route::get('/login', fn() => view('auth.login'))->name('login');
+Route::get('/register', fn() => view('auth.register'))->name('register');
 
 /*
 |--------------------------------------------------------------------------
 | Dashboard
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth'])->get('/dashboard', function () {
-    return match (auth()->user()->role) {
-        'super_admin' => view('pages.dashboard.super_admin'),
-        'seller'      => view('pages.dashboard.seller'),
-        default       => view('pages.dashboard.user'),
-    };
-})->name('dashboard');
+Route::middleware(['auth'])
+    ->get('/dashboard', function () {
+        return match (auth()->user()->role) {
+            'super_admin' => view('pages.dashboard.super_admin'),
+            'seller' => view('pages.dashboard.seller'),
+            default => view('pages.dashboard.user'),
+        };
+    })
+    ->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
@@ -54,12 +61,11 @@ Route::middleware(['auth', 'role:seller'])
     ->prefix('seller')
     ->name('seller.')
     ->group(function () {
-
         Route::view('/messager', 'pages.seller.messager.index')->name('messager.index');
         Route::view('/orders', 'pages.seller.orders.index')->name('orders.index');
 
         // Products
-       Route::resource('products', ProductController::class);
+        Route::resource('products', ProductController::class);
 
         Route::view('/reviews', 'pages.seller.reviews.index')->name('reviews.index');
 
@@ -69,12 +75,11 @@ Route::middleware(['auth', 'role:seller'])
 
         Route::view('/shop_profile', 'pages.seller.shop_profile.index')->name('shop_profile.index');
 
-        // // Withdraw
-        // Route::view('/withdraw', 'pages.seller.withdraw.index')->name('withdraw.index');
-        // Route::view('/withdraw/create', 'pages.seller.withdraw.create')->name('withdraw.create');
-        // Route::view('/withdraw/edit', 'pages.seller.withdraw.edit')->name('withdraw.edit');
+        //  Withdraw
+                Route::get('withdraw', [WithdrawController::class, 'index'])->name('withdraw.index');
+                Route::get('withdraw/create', [WithdrawController::class, 'create'])->name('withdraw.create');
+                Route::post('withdraw', [WithdrawController::class, 'store'])->name('withdraw.store');
 
-        Route::resource('withdraw', 'App\Http\Controllers\seller\WithdrawController');
     });
 
 /*
@@ -86,7 +91,6 @@ Route::middleware(['auth', 'role:super_admin'])
     ->prefix('super-admin')
     ->name('super_admin.')
     ->group(function () {
-
         // Categories
         Route::resource('categories', CategoryController::class);
         Route::resource('sub_category', SubCategoryController::class);
@@ -98,46 +102,45 @@ Route::middleware(['auth', 'role:super_admin'])
         Route::view('/brands/edit', 'pages.super_admin.brands.edit')->name('brands.edit');
 
         //withdraw method
-        Route::resource('withdraw_method', WithdrawMethodController::class);
+                Route::resource('withdraw-methods', WithdrawMethodController::class);
+                Route::get('withdraw-requests', [WithdrawRequestController::class, 'index'])->name('admin.withdraw.requests');
+                Route::post('withdraw-requests/{id}/paid', [WithdrawRequestController::class, 'paid'])->name('admin.withdraw.paid');
+                Route::post('withdraw-requests/{id}/decline', [WithdrawRequestController::class, 'decline'])->name('admin.withdraw.decline');
 
-        // Products
-        // Route::view('/product', 'pages.super_admin.product.index')->name('product.index');
-        // Route::view('/product/create', 'pages.super_admin.product.create')->name('product.create');
-        // Route::view('/product/edit', 'pages.super_admin.product.edit')->name('product.edit');
+        //withdraw_list
+        Route::resource('withdraw-list', WithdrawListController::class);
+        Route::get('withdraw-list',[\App\Http\Controllers\super_admin\WithdrawListController::class, 'index'])->name('withdraw.list');
 
-        // Route::view('/seller_product', 'pages.super_admin.seller_product.index')->name('seller_product.index');
-        // Route::view('/seller_pending_product', 'pages.super_admin.seller_pending_product.index')->name('seller_pending_product.index');
+        Route::post('withdraw/{id}/paid',[\App\Http\Controllers\super_admin\WithdrawListController::class, 'paid'])->name('withdraw.paid');
 
-        Route::get('/products', [ProductApprovalController::class, 'all'])
-        ->name('product.index');
+        Route::post('withdraw/{id}/decline',[\App\Http\Controllers\super_admin\WithdrawListController::class, 'decline'])->name('withdraw.decline');
+        Route::get('/products', [ProductApprovalController::class, 'all'])->name('product.index');
 
-    Route::get('/seller-products', [ProductApprovalController::class, 'all'])
-        ->name('seller_product.index');
+        Route::get('/seller-products', [ProductApprovalController::class, 'all'])->name('seller_product.index');
 
-    Route::get('/pending-products', [ProductApprovalController::class, 'pending'])
-        ->name('seller_pending_product.index');
+        Route::get('/pending-products', [ProductApprovalController::class, 'pending'])->name('seller_pending_product.index');
 
-    Route::post('/products/{id}/approve', [ProductApprovalController::class, 'approve'])
-        ->name('product.approve');
+        Route::post('/products/{id}/approve', [ProductApprovalController::class, 'approve'])->name('product.approve');
 
-    Route::post('/products/{id}/reject', [ProductApprovalController::class, 'reject'])
-        ->name('product.reject');
+        Route::post('/products/{id}/reject', [ProductApprovalController::class, 'reject'])->name('product.reject');
 
-        Route::get('/products/filter', [ProductApprovalController::class, 'filter'])
-        ->name('product.filter');
+        Route::get('/products/filter', [ProductApprovalController::class, 'filter'])->name('product.filter');
 
-       Route::get('/products', [ProductApprovalController::class, 'index'])
-            ->name('product.index');
+        Route::get('/products', [ProductApprovalController::class, 'index'])->name('product.index');
 
-        Route::get('/products/create', [ProductApprovalController::class, 'create'])
-            ->name('product.create');
+        Route::get('/products/create', [ProductApprovalController::class, 'create'])->name('product.create');
 
-        Route::post('/products', [ProductApprovalController::class, 'store'])
-            ->name('product.store');
+        Route::post('/products', [ProductApprovalController::class, 'store'])->name('product.store');
 
-        Route::get('/seller_products', [ProductApprovalController::class, 'seller_product'])
-            ->name('seller_product.index');
+        Route::get('/seller_products', [ProductApprovalController::class, 'seller_product'])->name('seller_product.index');
 
+        // Route::get('blog_coments', 'App\Http\Controllers\super_admin\BlogCommentController@index')->name('blog_comments.index');
+        // Route::post('blog_coments/{id}/approve', 'App\Http\Controllers\super_admin\BlogCommentController@approve')->name('blog_comments.approve');
+        // Route::delete('blog_coments/{id}', 'App\Http\Controllers\super_admin\BlogCommentController@destroy')->name('blog_comments.destroy');
+
+        Route::get('/blog_comments', [BlogCommentController::class, 'index'])->name('blog_comments.index');
+        Route::post('/blog_comments/{id}/approve', [BlogCommentController::class, 'approve'])->name('blog_comments.approve');
+        Route::delete('/blog_comments/{id}', [BlogCommentController::class, 'destroy'])->name('blog_comments.destroy');
         Route::view('/product_review', 'pages.super_admin.product_review.index')->name('product_review.index');
 
         // Orders
@@ -153,15 +156,10 @@ Route::middleware(['auth', 'role:super_admin'])
 
         Route::view('/transaction', 'pages.super_admin.transaction.index')->name('transaction.index');
         Route::view('/setting_payement', 'pages.super_admin.setting_payment.index')->name('setting_payment.index');
-        // Route::view('/withdraw_method', 'pages.super_admin.withdraw_method.index')->name('withdraw_method.index');
-        // Route::view('/withdraw_method/create', 'pages.super_admin.withdraw_method.create')->name('withdraw_method.create');
-        // Route::view('/withdraw_method/edit', 'pages.super_admin.withdraw_method.edit')->name('withdraw_method.edit');
-        Route::view('/withdraw_list', 'pages.super_admin.withdraw_list.index')->name('withdraw_list.index');
         Route::view('/home_page', 'pages.super_admin.home_page.index')->name('home_page.index');
         Route::view('/vendor_condition', 'pages.super_admin.vendor_condition.index')->name('vendor_condition.index');
         Route::view('/about_page', 'pages.super_admin.about_page.index')->name('about_page.index');
         Route::view('/terms_page', 'pages.super_admin.terms_page.index')->name('terms_page.index');
-        Route::view('/blog_coment', 'pages.super_admin.blog_coment.index')->name('blog_coment.index');
         Route::view('/messages', 'pages.super_admin.messages.index')->name('messages.index');
         Route::view('/footer_info', 'pages.super_admin.footer_info.index')->name('footer_info.index');
         Route::view('/footer_social', 'pages.super_admin.footer_social.index')->name('footer_social.index');
@@ -199,14 +197,11 @@ Route::middleware(['auth', 'role:super_admin'])
         Route::resource('blogs', BlogController::class);
 
         // Pending Vendor (FIXED route name)
-  Route::get('/pending-vendor', [VendorPendingController::class, 'index'])
-            ->name('pending_vendor.index');
+        Route::get('/pending-vendor', [VendorPendingController::class, 'index'])->name('pending_vendor.index');
 
-        Route::post('/pending-vendor/{id}/approve', [VendorPendingController::class, 'approve'])
-            ->name('pending_vendor.approve');
+        Route::post('/pending-vendor/{id}/approve', [VendorPendingController::class, 'approve'])->name('pending_vendor.approve');
 
-        Route::post('/pending-vendor/{id}/reject', [VendorPendingController::class, 'reject'])
-            ->name('pending_vendor.reject');
+        Route::post('/pending-vendor/{id}/reject', [VendorPendingController::class, 'reject'])->name('pending_vendor.reject');
     });
 
 /*
@@ -218,7 +213,6 @@ Route::middleware(['auth', 'role:user'])
     ->prefix('user')
     ->name('user.')
     ->group(function () {
-
         Route::view('/messager', 'pages.user.messager.index')->name('messager.index');
         Route::view('/orders', 'pages.user.orders.index')->name('orders.index');
         Route::view('/reviews', 'pages.user.reviews.index')->name('reviews.index');
