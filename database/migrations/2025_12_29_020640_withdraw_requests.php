@@ -18,7 +18,10 @@ return new class extends Migration
     $table->double('total_amount');
     $table->double('withdraw_amount');
     $table->double('withdraw_charge')->default(0);
-    $table->text('account_info');
+
+    $table->string('account_name');
+    $table->string('account_number');
+    $table->string('bank_name')->nullable();
     $table->enum('status', ['pending','paid','decline'])->default('pending');
     $table->text('admin_note')->nullable();
     $table->timestamps();
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('withdraw_requests');
     }
 };
