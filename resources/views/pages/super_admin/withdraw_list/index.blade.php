@@ -7,41 +7,47 @@
         <h1>Withdraw Requests</h1>
     </div>
 
-    <div class="section-body">
-        <div class="card">
-            <div class="card-body p-0">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Vendor</th>
-                            <th>Method</th>
-                            <th>Total</th>
-                            <th>Withdraw</th>
-                            <th>Charge</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th width="12%">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>12</td>
-                            <td>Admin Shop</td>
-                            <td>Bank Transfer</td>
-                            <td>Rp5.000.000</td>
-                            <td>Rp4.800.000</td>
-                            <td>Rp200.000</td>
-                            <td><span class="badge badge-warning">Pending</span></td>
-                            <td>18-12-2025</td>
-                            <td>
-                                <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
-                                <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Vendor</th>
+                        <th>Method</th>
+                        <th>Amount</th>
+                        <th>Charge</th>
+                        <th>Status</th>
+                        <th width="150">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($withdraws as $w)
+                    <tr>
+                        <td>{{ $w->vendor->name }}</td>
+                        <td>{{ $w->method->name }}</td>
+                        <td>{{ number_format($w->withdraw_amount) }}</td>
+                        <td>{{ number_format($w->withdraw_charge) }}</td>
+                        <td>
+                            <span class="badge badge-info">{{ $w->status }}</span>
+                        </td>
+                        <td>
+                            @if($w->status == 'pending')
+                                <form action="{{ route('super_admin.withdraw.paid',$w->id) }}"
+                                      method="POST" class="d-inline">
+                                    @csrf
+                                    <button class="btn btn-success btn-sm">Paid</button>
+                                </form>
+                                <form action="{{ route('super_admin.withdraw.decline',$w->id) }}"
+                                      method="POST" class="d-inline">
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm">Decline</button>
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
