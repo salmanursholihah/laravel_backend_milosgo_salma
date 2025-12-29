@@ -19,4 +19,12 @@ class Vendor extends Model
     {
         return $this->hasMany(Product::class, 'vendor_id');
     }
+
+    public function withdrawRequests(){
+        return $this->hasMany(WithdrawRequest::class);
+    }
+
+    public function wallet(){
+        return $this->hasOne(Wallet::class);
+    }
 }

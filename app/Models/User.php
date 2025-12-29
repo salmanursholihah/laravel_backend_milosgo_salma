@@ -52,4 +52,11 @@ class User extends Authenticatable
     public function vendor(){
         return $this->hasOne(Vendor::class);
     }
+
+    public function wallet(){
+        return $this->hasOne(Wallet::class);
+    }
+    public function blogcomments(){
+        return $this->hasMany(BlogComment::class);
+    }
 }

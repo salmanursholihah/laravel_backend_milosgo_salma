@@ -110,9 +110,9 @@
                         <i class="fas fa-wallet"></i><span>Withdraw Payments</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('super_admin.withdraw_method.index') }}">Withdraw
+                        <li><a class="nav-link" href="{{ route('super_admin.withdraw-methods.index') }}">Withdraw
                                 Method</a></li>
-                        <li><a class="nav-link" href="{{ route('super_admin.withdraw_list.index') }}">Withdraw List</a>
+                        <li><a class="nav-link" href="{{ route('super_admin.withdraw.list') }}">Withdraw List</a>
                         </li>
                     </ul>
                 </li>
@@ -143,7 +143,7 @@
                         <li><a class="nav-link" href="{{ route('super_admin.blog_category.index') }}">Categories</a>
                         </li>
                         <li><a class="nav-link" href="{{ route('super_admin.blogs.index') }}">Blog</a></li>
-                        <li><a class="nav-link" href="{{ route('super_admin.blog_coment.index') }}">Blog Comments</a>
+                        <li><a class="nav-link" href="{{ route('super_admin.blog_comments.index') }}">Blog Comments</a>
                         </li>
                     </ul>
                 </li>

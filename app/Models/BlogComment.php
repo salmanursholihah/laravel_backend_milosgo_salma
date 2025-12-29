@@ -5,13 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubCategory extends Model
+class BlogComment extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function category()
+    public function blog()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Blog::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
