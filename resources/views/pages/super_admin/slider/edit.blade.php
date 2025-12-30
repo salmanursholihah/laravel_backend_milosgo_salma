@@ -71,6 +71,12 @@
                                value="{{ old('serial', $slider->serial) }}">
                     </div>
 
+                    {{--images}--}}
+                    <div class="form-group">
+                        <label>Images</label>
+                        <input type="file" name="images[]" class="form-control" multiple>
+                    </div>
+
                     {{-- STATUS --}}
                     <div class="form-group">
                         <label>Status</label>

@@ -9,4 +9,9 @@ class Slider extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    protected $casts = [
+        'images' => 'array',
+    ];
+
 }
