@@ -5,29 +5,69 @@
 <section class="section">
     <div class="section-header">
         <h1>Footer Section Two</h1>
+
+        <div class="section-header-button">
+            <a href="{{ route('super_admin.footer_grid_two.create') }}"
+               class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New
+            </a>
+        </div>
     </div>
 
     <div class="card">
         <div class="card-body p-0">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Name</th>
+                        <th>URL</th>
                         <th>Status</th>
-                        <th width="15%">Action</th>
+                        <th width="20%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>About Us</td>
-                        <td><span class="badge badge-primary">Active</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
+                    @forelse ($footerGridTwo as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>
+                                <a href="{{ $item->url }}" target="_blank">
+                                    {{ Str::limit($item->url, 30) }}
+                                </a>
+                            </td>
+                            <td>
+                                @if($item->status)
+                                    <span class="badge badge-success">Active</span>
+                                @else
+                                    <span class="badge badge-secondary">Inactive</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('super_admin.footer_grid_two.edit', $item->id) }}"
+                                   class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <form action="{{ route('super_admin.footer_grid_two.destroy', $item->id) }}"
+                                      method="POST"
+                                      class="d-inline"
+                                      onsubmit="return confirm('Delete this item?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">
+                                No data found
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
