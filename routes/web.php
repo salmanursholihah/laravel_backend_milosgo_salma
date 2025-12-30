@@ -17,6 +17,10 @@ use App\Http\Controllers\super_admin\WithdrawRequestController;
 use App\Http\Controllers\seller\WithdrawController;
 use App\Http\Controllers\super_admin\WithdrawListController;
 use App\Http\Controllers\super_admin\BlogCommentController;
+use App\Http\Controllers\super_admin\FooterInfoController;
+use App\Http\Controllers\super_admin\FooterSocialController;
+use App\Http\Controllers\super_admin\FooterGridTwoController;
+use App\Http\Controllers\super_admin\FooterGridThreeController;
 
 
 /*
@@ -161,10 +165,18 @@ Route::middleware(['auth', 'role:super_admin'])
         Route::view('/about_page', 'pages.super_admin.about_page.index')->name('about_page.index');
         Route::view('/terms_page', 'pages.super_admin.terms_page.index')->name('terms_page.index');
         Route::view('/messages', 'pages.super_admin.messages.index')->name('messages.index');
-        Route::view('/footer_info', 'pages.super_admin.footer_info.index')->name('footer_info.index');
-        Route::view('/footer_social', 'pages.super_admin.footer_social.index')->name('footer_social.index');
-        Route::view('/footer_grid_two', 'pages.super_admin.footer_grid_two.index')->name('footer_grid_two.index');
-        Route::view('/footer_grid_three', 'pages.super_admin.footer_grid_three.index')->name('footer_grid_three.index');
+        // Route::view('/footer_info', 'pages.super_admin.footer_info.index')->name('footer_info.index');
+        // Route::view('/footer_social', 'pages.super_admin.footer_social.index')->name('footer_social.index');
+        // Route::view('/footer_social/create', 'pages.super_admin.footer_social.create')->name('footer_social.create');
+        // Route::view('/footer_social/edit', 'pages.super_admin.footer_social.edit')->name('footer_social.edit');
+        // Route::view('/footer_grid_two', 'pages.super_admin.footer_grid_two.index')->name('footer_grid_two.index');
+        // Route::view('/footer_grid_three', 'pages.super_admin.footer_grid_three.index')->name('footer_grid_three.index');
+
+        Route::resource('footer_info',FooterInfoController::class);
+        Route::resource('footer_social',FooterSocialController::class);
+        Route::resource('footer_grid_two',FooterGridTwoController::class);
+        Route::resource('footer_grid_three',FooterGridThreeController::class);
+
         Route::view('/customer_list', 'pages.super_admin.customer_list.index')->name('customer_list.index');
         Route::view('/vendor_list', 'pages.super_admin.vendor_list.index')->name('vendor_list.index');
         Route::view('/admin_list', 'pages.super_admin.admin_list.index')->name('admin_list.index');
@@ -185,10 +197,20 @@ Route::middleware(['auth', 'role:super_admin'])
         Route::view('/shipping_rule/edit', 'pages.super_admin.shipping_rule.edit')->name('shipping_rule.edit');
 
         // Vendor Profile
-        Route::view('/vendor_profile', 'pages.super_admin.vendor_profile.index')->name('vendor_profile.index');
-        Route::view('/vendor_profile/create', 'pages.super_admin.vendor_profile.create')->name('vendor_profile.create');
-        Route::view('/vendor_profile/edit', 'pages.super_admin.vendor_profile.edit')->name('vendor_profile.edit');
+        // Route::view('/vendor_profile', 'pages.super_admin.vendor_profile.index')->name('vendor_profile.index');
+        // Route::view('/vendor_profile/create', 'pages.super_admin.vendor_profile.create')->name('vendor_profile.create');
+        // Route::view('/vendor_profile/edit', 'pages.super_admin.vendor_profile.edit')->name('vendor_profile.edit');
 
+         Route::get(
+            'vendor-profile/{vendor}',
+            [VendorProfileController::class, 'edit']
+        )->name('vendor_profile.edit');
+
+        Route::put(
+            'vendor-profile/{vendor}',
+            [VendorProfileController::class, 'update']
+        )->name('vendor_profile.update');
+        
         // Slider
         Route::resource('slider', SliderController::class);
 

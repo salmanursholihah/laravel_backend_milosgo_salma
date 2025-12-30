@@ -7,6 +7,7 @@
         <h1>Vendor List</h1>
     </div>
 
+
     <div class="card">
         <div class="card-body p-0">
             <table class="table table-bordered">
